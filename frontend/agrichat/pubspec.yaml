@@ -47,6 +47,12 @@ dependencies:
   # Secure storage
   flutter_secure_storage: ^9.2.2
 
+  image_picker: ^1.0.7
+  record: 6.1.2
+  audioplayers: ^6.1.0
+  path_provider: ^2.1.2
+  permission_handler: ^11.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -98,3 +104,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+

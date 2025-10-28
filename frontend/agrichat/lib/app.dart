@@ -13,7 +13,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 // ----------------------------- Constants -----------------------------
-const String BACKEND_BASE = 'http://172.30.84.50:8000/';
+const String BACKEND_BASE = 'http://172.30.84.196:8000/';
 final _secureStorage = FlutterSecureStorage();
 
 // ----------------------------- Google Sign-In instance -----------------------------

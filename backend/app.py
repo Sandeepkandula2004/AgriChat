@@ -18,7 +18,6 @@ import base64
 from PIL import Image
 import tempfile
 from groq import Groq
-
 # For text-to-speech
 from gtts import gTTS
 
@@ -551,4 +550,4 @@ async def add_message(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app:app", host="0.0.0.0", port=8000)
+    uvicorn.run("app:app", host="0.0.0.0", port=7860)

@@ -18,7 +18,7 @@ import base64
 from PIL import Image
 import tempfile
 from groq import Groq
-
+from llm_res import generate_advisory
 # For text-to-speech
 from gtts import gTTS
 
@@ -423,15 +423,15 @@ async def add_message(
                     response = model.generate_content(prompt)
                     detailed_response += response.text.strip()
                 except:
-                    detailed_response += get_detailed_explanation(diagnosis)
+                    detailed_response += generate_advisory(diagnosis)
             else:
-                detailed_response += get_detailed_explanation(diagnosis)
+                detailed_response += generate_advisory(diagnosis)
             
             message = f"[Image uploaded] {message}"
             bot_reply = detailed_response
         else:
             message = "[Image uploaded]"
-            bot_reply = get_detailed_explanation(diagnosis)
+            bot_reply = generate_advisory(diagnosis)
     
     if not message:
         raise HTTPException(status_code=400, detail="No message, audio, or image provided")
@@ -496,6 +496,7 @@ async def add_message(
             .limit(MAX_RECENT_MESSAGES)
             .execute()
         )
+        result = generate_advisory(message)
         recent_messages = check_resp(messages_resp, raise_on_missing=False) or []
         recent_messages = list(reversed(recent_messages))
 
@@ -504,6 +505,9 @@ async def add_message(
 - Do not prefix your answers with "Bot:" or "AI:".
 - Respond naturally, like a chat conversation.
 - Focus on agricultural advice, farming tips, and crop management.
+- You have access to specialized agricultural knowledge that provides solutions to common farming problems.
+- Use the provided advisory information to give accurate and helpful responses.
+- If the advisory information is relevant to the user's question, incorporate it naturally into your response.
 - If asked something unclear, politely ask for clarification.
 """
 
@@ -512,8 +516,11 @@ async def add_message(
              for m in recent_messages]
         )
 
+        # Include the advisory result in the prompt
+        advisory_context = f"\n\nSpecialized Agricultural Advisory:\n{result}" if result else ""
+
         prompt = SYSTEM_PROMPT + "\n\nConversation so far:\n" + history_text + \
-                 f"\nAssistant:"
+                 advisory_context + f"\n\nUser's latest question: {message}\n\nAssistant:"
 
         bot_reply = f"[local fallback reply] You said: {message}"
         if model:

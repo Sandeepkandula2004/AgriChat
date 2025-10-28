@@ -11,3 +11,27 @@ pillow==12.0.0
 gtts==2.5.4
 groq==0.32.0
 python-multipart==0.0.20
+scikit-learn
+faiss-cpu
+sentence_transformers
+pypdf2 
+pypdf
+tqdm
+# === Core scientific libraries ===
+numpy==1.26.4
+scikit-learn==1.5.0
+joblib==1.4.2
+
+# === Sentence embeddings ===
+# sentence-transformers==2.7.0
+
+# === Vector search (FAISS) ===
+#faiss-cpu==1.8.0
+
+# === Quantum computing ===
+qiskit==1.2.2
+qiskit-aer==0.14.2
+
+# openai==1.42.0
+# python-dotenv
+groq
